@@ -1,0 +1,90 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "sumo_access_id": "",
+    "sumo_access_key": "",
+    "newrelic_key": "",
+    "source_ami": "",
+    "source_ami_name": "",
+    "size" : "",
+    "region": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ami_name": "ccpacker-ami-{{isotime \"2006-01-02_1504\"}}-base-{{user `source_ami_name`}}",
+      "ami_description": "base on {{user `source_ami_name`}} + sumologic + newrelic + New York timezone.",
+      "communicator": "ssh",
+      "ssh_pty":true,
+      "ami_block_device_mappings": [{
+        "device_name": "/dev/xvda",
+        "volume_type": "gp2",
+        "delete_on_termination": true,
+        "volume_size": "{{user `size`}}"
+      }],
+      "launch_block_device_mappings": [{
+        "device_name": "/dev/xvda",
+        "volume_type": "gp2",
+        "delete_on_termination": true,
+        "volume_size": "{{user `size`}}"
+      }]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "toImage/sumo.conf",
+      "destination": "/tmp/sumo.conf"
+    },
+    {
+      "type": "file",
+      "source": "toImage/sumo-linux.json",
+      "destination": "/tmp/sumo-linux.json"
+    },
+    {
+      "type": "file",
+      "source": "toImage/nat_monitor.sh",
+      "destination": "/tmp/nat_monitor.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "echo ----start yum upgrade -----",
+        "sudo yum upgrade -y",
+        "sleep 3",
+        "echo ----finish yum upgrade -----",
+        "echo ----start update clock file -----",
+        "sudo sed -i  's:ZONE=\"UTC\":ZONE=\"America/New_York\":g' /etc/sysconfig/clock",
+        "cat /etc/sysconfig/clock",
+        "sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime",
+        "echo ----finish timezone update -----",
+        "echo ----start install newrelic -----",
+        "sudo rpm -Uvh https://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm",
+        "sudo yum install newrelic-sysmond -y",
+        "sudo nrsysmond-config --set license_key={{user `newrelic_key`}}",
+        "sudo /etc/init.d/newrelic-sysmond start",
+        "echo ----finish newrelic -----",
+        "echo ----finish newrelic -----",
+        "echo ----start install sumo",
+        "sudo mv /tmp/sumo.conf /etc/sumo.conf",
+        "sudo sed -i  's:accessid=:accessid={{user `sumo_access_id`}}:g' /etc/sumo.conf",
+        "sudo sed -i  's:accesskey=:accesskey={{user `sumo_access_key`}}:g' /etc/sumo.conf",
+        "sudo cat /etc/sumo.conf",
+        "sudo mkdir -p /opt/sumo/",
+        "sudo mv /tmp/sumo-linux.json /opt/sumo/sumo-linux.json",
+        "sudo ls /opt/sumo/sumo-linux.json -al",
+        "wget https://collectors.sumologic.com/rest/download/linux/64 -Osumo-install.sh",
+        "chmod +x sumo-install.sh",
+        "sudo ./sumo-install.sh -q ",
+        "echo ----finish sumo -----"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{"api.version": "v1",
+"sources" : [
+  {
+    "sourceType" : "LocalFile",
+    "name" : "linux-message",
+    "pathExpression" : "/var/log/messages*",
+    "category" : "OS/Linux/System",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "linux-secure",
+    "pathExpression" : "/var/log/secure*",
+    "category" : "OS/Linux/Security",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "linux-cron",
+    "pathExpression" : "/var/log/cron*",
+    "category" : "OS/Linux/System",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "mail",
+    "pathExpression" : "/var/log/maillog*",
+    "category" : "OS/Linux/System",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "mail",
+    "pathExpression" : "/var/log/nat*",
+    "category" : "OS/Linux/NAT",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "tomcat",
+    "pathExpression" : "/var/log/tomcat7/catalina.*",
+    "category" : "tomcat/log",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "tomcat-access",
+    "pathExpression" : "/var/log/tomcat7/*access*",
+    "category" : "tomcat/access",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "tomcat",
+    "pathExpression" : "/var/log/tomcat7/catalina.*",
+    "category" : "tomcat/log",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "tomcat-access",
+    "pathExpression" : "/var/log/tomcat7/*access*",
+    "category" : "tomcat/access",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "nginx",
+    "pathExpression" : "/var/log/nginx/*error*",
+    "category" : "nginx/log",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "nginx-access",
+    "pathExpression" : "/var/log/nginx/*access*",
+    "category" : "nginx/access",
+    "timeZone": "America/New_York"
+  }
+  ]
+}
