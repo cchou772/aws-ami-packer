@@ -63,11 +63,7 @@ echo aws_access_key  = "${aws_access_key}"
 echo aws_secret_key  = "${aws_secret_key}"
 echo region  = "${region}"
 
-<<<<<<< HEAD
-#get ccpacker lastest image id and name
-=======
 #get AWS lastest image id and name
->>>>>>> 5924fab5e563e432036a90c04059d419c17a359f
 echo "start searching ......."
 results=(`python src/python/get-ccpacker-base-images.py -o ${aws_owner_id} -k ${aws_access_key} -s ${aws_secret_key} -r ${region}`)
 
