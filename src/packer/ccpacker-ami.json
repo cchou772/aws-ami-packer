@@ -20,7 +20,7 @@
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
       "ami_name": "ccpacker-ami-{{isotime \"2006-01-02_1504\"}}-base-{{user `source_ami_name`}}",
-      "ami_description": "base on {{user `source_ami_name`}} + sumologic + newrelic + New York timezone.",
+      "ami_description": "base on {{user `source_ami`}} {{user `source_ami_name`}} + sumologic + newrelic + New York timezone.",
       "communicator": "ssh",
       "ssh_pty":true,
       "ami_block_device_mappings": [{

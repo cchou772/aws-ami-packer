@@ -16,7 +16,7 @@ def getargs(argv):
     try:
         opts, args = getopt.getopt(argv,"o:k:s:r:",["aws_owner_id","aws_key=","aws_secret=", "regions="])
     except getopt.GetoptError:
-        print 'get-ccpacker-base-images.py -o owner_id -k <aws_key> -s <aws_secret> -r <region>'
+        print 'get-ccpacker-base-images.py -o <aws_owner_id> -k <aws_key> -s <aws_secret> -r <region>'
         sys.exit(2)
     for opt, arg in opts:
         if opt in ("-k", "--aws_key"):

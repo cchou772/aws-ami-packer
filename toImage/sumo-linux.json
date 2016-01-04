@@ -52,14 +52,14 @@
   {
     "sourceType" : "LocalFile",
     "name" : "tomcat",
-    "pathExpression" : "/var/log/tomcat7/catalina.*",
+    "pathExpression" : "/var/log/tomcat8/catalina.*",
     "category" : "tomcat/log",
     "timeZone": "America/New_York"
   },
   {
     "sourceType" : "LocalFile",
     "name" : "tomcat-access",
-    "pathExpression" : "/var/log/tomcat7/*access*",
+    "pathExpression" : "/var/log/tomcat8/*access*",
     "category" : "tomcat/access",
     "timeZone": "America/New_York"
   },
@@ -75,6 +75,34 @@
     "name" : "nginx-access",
     "pathExpression" : "/var/log/nginx/*access*",
     "category" : "nginx/access",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "aws-cloud-init",
+    "pathExpression" : "/var/log/cloud-init-output.log",
+    "category" : "aws/cloud-init",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "opsworks-chef",
+    "pathExpression" : "/var/lib/aws/opsworks/chef/*.log",
+    "category" : "opsworks/chef",
+    "timeZone": "America/New_York"
+  },
+  {
+    "sourceType" : "LocalFile",
+    "name" : "opsworks-agent",
+    "pathExpression" : "/var/log/aws/opsworks.log",
+    "category" : "opsworks/agent",
+    "timeZone": "America/New_York"
+  }
+  {
+    "sourceType" : "LocalFile",
+    "name" : "newrelic",
+    "pathExpression" : "/var/log/newrelic/*.log",
+    "category" : "newrelic/agent",
     "timeZone": "America/New_York"
   }
   ]
